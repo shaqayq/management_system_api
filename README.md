@@ -1,2 +1,2 @@
 # management_system_api
-Api for a MIS .
+Its a user management API.
