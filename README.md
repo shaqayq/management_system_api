@@ -3,4 +3,5 @@ Its a user management API.
 
 #technology
 - Node.js
-- MySql
+- MySql 
+- JS
