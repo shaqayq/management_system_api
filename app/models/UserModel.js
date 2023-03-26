@@ -1,15 +1,21 @@
-const mysql = require('mysql')
+//const mysql = require('mysql')
+const {DataTypes, Sequelize} = require('sequelize')
+const{ sequlize}= require('../boot/mysql')
 
 const userSchema = {
-    id: {type: Number , primaryKey: true} , 
-    fisrt_name: String , 
-    last_name: String, 
-    mobile: String , 
-    email: String,
-    wallet: {type: Number,default: 0},
-    createdAt:{type:Date , default: Date.now()},
-    updatedAt: { type:Date, default: Date.now()}
+    id: {type: DataTypes.INTEGER , primaryKey: true , autoIncrement: true} , 
+    fisrt_name: {type: DataTypes.STRING}, 
+    last_name: {type: DataTypes.STRING}, 
+    mobile: {type: DataTypes.STRING} , 
+    email: {type: DataTypes.STRING},
+    wallet: {type: DataTypes.INTEGER,default: 0},
+    
 }
 
-const userModel = mysql.model('User' , userSchema)
+const userModel = sequlize.define('User' , userSchema);
+userModel.sync().then(() => {
+    console.log('*****User table created successfully!*****');
+ }).catch((error) => {
+    console.error('Unable to create table : ', error);
+ });
  module.exports = userModel

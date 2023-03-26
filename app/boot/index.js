@@ -1,2 +1,2 @@
-const startMysql = require('./mysql')
+const {startMysql} = require('./mysql')
 startMysql()
