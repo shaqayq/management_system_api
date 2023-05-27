@@ -4,7 +4,7 @@ const{ sequlize}= require('../boot/mysql')
 
 const userSchema = {
     id: {type: DataTypes.INTEGER , primaryKey: true , autoIncrement: true} , 
-    fisrt_name: {type: DataTypes.STRING}, 
+    first_name: {type: DataTypes.STRING}, 
     last_name: {type: DataTypes.STRING}, 
     mobile: {type: DataTypes.STRING} , 
     email: {type: DataTypes.STRING},

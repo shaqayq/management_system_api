@@ -1,4 +1,4 @@
-const userModel = require('../models/UserModel')
+const User = require('../models/UserModel')
 const userList =(req , res , next)=>{
    
     res.send({
@@ -7,18 +7,29 @@ const userList =(req , res , next)=>{
     })
 }
 
-const userAdd =(req , res , next) =>{
-    userModel.create({
-        first_name: 'Ali', 
-        last_nam: 'Mohammade',
-        mobile: '0894332716' ,
+const userAdd = async (req, res, next) => {
+    try {
+      const newUser = await User.create({
+        first_name: 'Ali',
+        last_name: 'Mohammade',
+        mobile: '0894332716',
         email: 'ali@gmail.com'
-    }).then((()=>{
-        console.log(res);
-    })).catch((error)=>{
-        console.error(error);
-    })
-}
+      });
+  
+      res.status(200).json({
+        success: true,
+        message: 'User added successfully!',
+        user: newUser
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to add user'
+      });
+    }
+  };
+
 module.exports = {
     userList, 
     userAdd
