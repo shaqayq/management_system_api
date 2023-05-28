@@ -1,3 +1,4 @@
+const { result } = require('lodash');
 const db = require('../boot/mysql');
 const createUserTable = require('../models/UserModel')
 
@@ -113,9 +114,56 @@ const findById =(req , res , next) => {
   
 }
 
+const deleteById = (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    if (!id || id === '') {
+      console.log(id);
+      return res.status(404).send({
+        success: false,
+        message: "User Not Found"
+      });
+    }
+
+    db.connection.query(`SELECT * FROM users WHERE id = ?`, [id], (error, results) => {
+      if (error) {
+        return res.status(500).send({
+          success: false,
+          message: "Error querying the database"
+        });
+      }
+
+      if (results.length === 0) {
+        return res.status(404).send({
+          success: false,
+          message: "User Not Found"
+        });
+      }
+
+      db.connection.query(`DELETE FROM users WHERE id = ?`, [id], (deleteError, deleteResult) => {
+        if (deleteError) {
+          return res.status(500).send({
+            success: false,
+            message: "Error deleting the user"
+          });
+        }
+
+        res.status(200).send({
+          success: true,
+          message: "User Successfully Deleted"
+        });
+      });
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
     userList, 
     userAdd ,
     FilterColumn,
-    findById
+    findById,
+    deleteById
 }
