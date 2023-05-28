@@ -1,3 +1,4 @@
+
 const db = require('../boot/mysql');
 const createUserTable = require('../models/UserModel')
 const userList =(req , res , next)=>{
@@ -15,34 +16,32 @@ const userList =(req , res , next)=>{
 
 const userAdd = (req, res, next) => {
   createUserTable();
+  const {first_name , last_name , email , mobile} = req.body
+
   const UserData = {
-    first_name: 'Ali',
-    last_name: 'Mohammade',
-    mobile: '0894332716',
-    email: 'ali@gmail.com'
+    first_name,
+    last_name,
+    email,
+    mobile
+    
   };
 
   db.connection.query('INSERT INTO users SET ?', UserData, (err, result) => {
     if (err) {
-      console.log("Could not add user:", err);
-      res.status(500).json({
+     console.log(err);
+      res.status(500).send({
         success: false,
         message: 'Failed to add user'
       });
     } else {
-      console.log("User added successfully!");
-      res.status(200).json({
+      // console.log("User added successfully!");
+      res.status(201).send({
         success: true,
         message: 'User added successfully!'
       });
     }
   });
 };
-
-module.exports = {
-  userAdd
-};
-
 
 module.exports = {
     userList, 
