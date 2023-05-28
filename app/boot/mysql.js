@@ -1,21 +1,33 @@
 const mysql= require('mysql')
-const {DataTypes, Sequelize} = require('sequelize')
 
-const {MYSQL_HOST , MYSQL_DB , MYSQL_USERNAME} = process.env
+const {MYSQL_HOST , MYSQL_DB , MYSQL_USERNAME , MYSQL_PORT} = process.env
 
-const sequlize = new Sequelize(MYSQL_DB , 'root' , '' ,{
-    host: MYSQL_HOST ,
-    dialect: 'mysql'
-})
 
 const startMysql = () =>{
 
-sequlize.authenticate().then(() => {
-    console.log('Connection has been established successfully.');
- }).catch((error) => {
-    console.error('Unable to connect to the database: ', error);
- });
+   const connection = mysql.createConnection({
+        host: MYSQL_HOST ,
+        user: MYSQL_USERNAME ,
+        port: MYSQL_PORT , 
+     
+    });
+    
+    connection.connect(err => {
+        if(err) {
+            console.log("connection faild " , err.message);
+            return;
+        }
+    
+        console.log("Connect successfully....");
+    })
 
+    connection.query(`CREATE DATABASE IF NOT EXISTS ${MYSQL_DB}` , (err) => {
+        if(err) {
+            console.log('DATABASE Couldnot create...');
+        }else {
+            console.log("DATABSE CREATES SUCCESSFULLY..");
+        }
+    });
 }
 
-module.exports ={ startMysql , sequlize }
+module.exports ={ startMysql }
