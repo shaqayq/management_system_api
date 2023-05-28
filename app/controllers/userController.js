@@ -1,13 +1,11 @@
-
 const db = require('../boot/mysql');
 const createUserTable = require('../models/UserModel')
-const userList =(req , res , next)=>{
-   
-  const userData=db.connection.query(`SELECT * FROM users` , (error,result , field) => {
-    if(error) throw error;
 
-    res.send({
-     
+
+const userList =(req , res , next)=>{   
+  const userData=db.connection.query(`SELECT * FROM users` , (error,result ) => {
+    if(error) throw error;
+    res.send({  
      usersList: result
        })
   });
@@ -43,7 +41,38 @@ const userAdd = (req, res, next) => {
   });
 };
 
+const FilterColumn = (req, res) => {
+  let projection = {};
+
+  if (req.query.hasOwnProperty('field')) {
+    projection = req.query.field.split(',').reduce((total, current) => {
+      return { [current]: 1, ...total };
+    }, {});
+  }
+
+  const query = `SELECT ${Object.keys(projection).join(',')} FROM users`;
+
+  db.connection.query(query, (error, results) => {
+    if (error) {
+      console.error('Error retrieving users:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to retrieve users',
+      });
+    } else {
+      res.status(200).json({
+        success: true,
+        data: {
+          users: results,
+        },
+      });
+    }
+  });
+};
+
+
 module.exports = {
     userList, 
-    userAdd
+    userAdd ,
+    FilterColumn
 }
