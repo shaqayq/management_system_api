@@ -5,7 +5,7 @@ const app = express()
 
 require('./boot')
 // require('./middlewares')(app)
- 
+ require('./routes')(app)
 // require('./middlewares/404')(app)
 // require('./middlewares/exception')(app)
 
