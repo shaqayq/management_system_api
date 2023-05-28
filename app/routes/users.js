@@ -1,7 +1,12 @@
+const bodyParser = require('body-parser');
 const express = require('express')
 const router = express.Router()
+router.use(bodyParser.json());
 const userListsController = require('../controllers/userController')
 
 router.get('/' , userListsController.userList)
 router.post('/newUser' , userListsController.userAdd)
+router.get('/FilterItem' , userListsController.FilterColumn)
+router.get('/:id' , userListsController.findById)
+router.delete('/:id' , userListsController.deleteById)
 module.exports= router
