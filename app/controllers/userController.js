@@ -160,7 +160,7 @@ const deleteById = (req, res, next) => {
   }
 };
 
-const updateUser =async(req , res ,next) => {
+const updateUser =(req , res ,next) => {
 try {
   
   const {id} =req.params;
@@ -171,7 +171,7 @@ try {
     })
   }
 
-  await db.connection.query('SELECT * FROM users WHERE id = ?' , id , (err , result)=> {
+   db.connection.query('SELECT * FROM users WHERE id = ?' , id , (err , result)=> {
     if(err) {
       return res.status(500).send({
         success:false,
