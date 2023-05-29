@@ -160,10 +160,59 @@ const deleteById = (req, res, next) => {
   }
 };
 
+const updateUser =async(req , res ,next) => {
+try {
+  
+  const {id} =req.params;
+  if(!id || id === ''){
+   return res.status(404).send({
+      error:true ,
+      message: "ID NOT EXISTS!!"
+    })
+  }
+
+  await db.connection.query('SELECT * FROM users WHERE id = ?' , id , (err , result)=> {
+    if(err) {
+      return res.status(500).send({
+        success:false,
+        message: " User Couldnot Update!"
+      })
+    }
+
+    if(result.length == 0 ) {
+     return res.status(400).send({
+        success:false,
+        message: "USER NOT FOUND!"
+      })
+    }
+
+    db.connection.query('UPDATE users SET ? WHERE id = ?' , [req.body , id] , (updateError , updateResult)=> {
+      if(updateError) {
+      return  res.status(500).send({
+          success:false ,
+          message: "USER COULDNOT UPDATE!"
+        })
+      }
+
+      res.status(200).send({
+        success:true ,
+        message: "USER UPDATED SUCCESSFULLY!"
+      })
+    })
+
+  })
+
+} catch (error) {
+  next(error)
+}
+
+}
+
 module.exports = {
     userList, 
     userAdd ,
     FilterColumn,
     findById,
-    deleteById
+    deleteById,
+    updateUser
 }
