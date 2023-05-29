@@ -52,7 +52,7 @@ Before attempting to get a copy of this, you should know(have) how to do the fol
 
 
 
-## Authors
+## Author
 
 👤 **Shaqayq**
 
@@ -76,7 +76,5 @@ Give a ⭐️ if you like this project!
 -Hat tip to anyone whose code was used
 - Inspiration
 - etc
-## 📝 License
 
-This project is [MIT](./MIT.md) licensed.
 
