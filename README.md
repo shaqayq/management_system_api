@@ -1,5 +1,4 @@
 
-
 # User Managment API
 
 > This project is  User Managment API with CRUD (Create, Read , Update , Delete) methods to store user data and retrive it from MYSQL database.
@@ -80,3 +79,4 @@ Give a ⭐️ if you like this project!
 ## 📝 License
 
 This project is [MIT](./MIT.md) licensed.
+
