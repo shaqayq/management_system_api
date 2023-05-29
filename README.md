@@ -9,8 +9,6 @@ For use this api need a key for authorization.
 
 - Major languages: Node.js , Mysql.
 
-<!-- ## Live Demo
-[Live Demo Link]() -->
 
 ## Getting Started
 
@@ -47,7 +45,7 @@ Before attempting to get a copy of this, you should know(have) how to do the fol
 - Filter user data by columns:
 >     http://localhost:2222/api/v1/users/FilterItem?Column_name
 
-- Get ,Delete and Update  user by id:(use suite HTTP request methods for each function)
+- Get, Delete and Update  user by id:(use appropriate HTTP request methods for each function)
 >     http://localhost:2222/api/v1/users/user_id
 
 
