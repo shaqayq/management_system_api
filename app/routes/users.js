@@ -3,8 +3,9 @@ const express = require('express')
 const router = express.Router()
 router.use(bodyParser.json());
 const userListsController = require('../controllers/userController')
+const auth = require('../middlewares/auth')
 
-router.get('/' , userListsController.userList)
+router.get('/' ,[auth], userListsController.userList)
 router.post('/newUser' , userListsController.userAdd)
 router.get('/FilterItem' , userListsController.FilterColumn)
 router.get('/:id' , userListsController.findById)
